@@ -24,22 +24,22 @@ s3_model_output = "s3://sagemaker/output/model.pt"
 # Define the input and output locations for your processing job
 input_data = ProcessingInput(
     source="s3://sagemaker/input/train.csv",
-    destination='/opt/ml/processing/input',
+    destination="/opt/ml/processing/input",
     input_name="train.csv",
-    s3_data_distribution_type='FullyReplicated',
-    s3_data_type='S3Prefix'
+    s3_data_distribution_type="FullyReplicated",
+    s3_data_type="S3Prefix",
 )
 
 output_data = ProcessingOutput(
-    source='/opt/ml/processing/output',
+    source="/opt/ml/processing/output",
     destination="s3://sagemaker/output/",
-    output_name="processed-data.csv"
+    output_name="processed-data.csv",
 )
 
 output_model = ProcessingOutput(
-    source='/opt/ml/processing/output',
+    source="/opt/ml/processing/output",
     destination="s3://sagemaker/output/",
-    output_name="model.pt"
+    output_name="model.pt",
 )
 
 
@@ -49,7 +49,7 @@ processor = ScriptProcessor(
     command=["python3"],
     instance_type="ml.m5.large",
     instance_count=1,
-    role=role_arn
+    role=role_arn,
 )
 
 # Data Preprocessing
@@ -58,7 +58,7 @@ preprocess_step = ProcessingStep(
     processor=processor,
     inputs=[input_data],
     outputs=[output_data],
-    code="preprocess/preprocess.py"
+    code="preprocess/preprocess.py",
 )
 
 # Training Step
@@ -70,13 +70,11 @@ estimator = PyTorch(
     framework_version="1.12",
     py_version="py3.12",
     output_path="s3://sagemaker/output",
-    role=role_arn
+    role=role_arn,
 )
 
 train_step = TrainingStep(
-    name="TrainModel",
-    estimator=estimator,
-    inputs={"input_data": output_data}
+    name="TrainModel", estimator=estimator, inputs={"input_data": output_data}
 )
 
 # Model Deployment Step
@@ -85,25 +83,19 @@ model = Model(
     image_uri="763104351884.dkr.ecr.us-east-1.amazonaws.com/pytorch-inference:1.12.0-cpu-py38",
     model_data="s3://sagemaker/output/model.pt",
     entry_point="deploy/inference.py",
-    role=role_arn
+    role=role_arn,
 )
 
 deploy_step = CreateModelStep(
     name="DeployModel",
-    step_args=model.deploy(
-        initial_instance_count=1,
-        instance_type="ml.m5.large")
+    step_args=model.deploy(initial_instance_count=1, instance_type="ml.m5.large"),
 )
 
 # Create the pipeline
 pipeline = Pipeline(
-    name="ModelPipeline",
-    steps=[preprocess_step, train_step, deploy_step]
+    name="ModelPipeline", steps=[preprocess_step, train_step, deploy_step]
 )
 
 pipeline.upsert(
     role_arn=role_arn,
 )
-
-
-
