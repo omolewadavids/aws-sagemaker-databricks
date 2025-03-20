@@ -1,0 +1,4 @@
+
+s3_raw_data = "s3://sagemaker/input/train.csv"
+s3_processed_data = "s3://sagemaker/output/processed-data.csv"
+s3_model_output = "s3://sagemaker/output/model.pt"
