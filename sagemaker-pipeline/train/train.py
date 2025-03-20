@@ -20,12 +20,12 @@ with mlflow.start_run():
             x = torch.relu(self.fc1(x))
             return self.fc2(x)
 
-
     # Load Data
     transform = transforms.ToTensor()
     train_loader = torch.utils.data.DataLoader(
         datasets.MNIST(".", train=True, download=True, transform=transform),
-        batch_size=32, shuffle=True
+        batch_size=32,
+        shuffle=True,
     )
 
     # Model Setup

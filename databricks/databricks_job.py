@@ -6,6 +6,7 @@ TOKEN = "your-databricks-token"
 
 JOB_ID = "1234"  # Your Databricks job ID
 
+
 def trigger_databricks_job():
     url = f"{DATABRICKS_INSTANCE}/api/2.0/jobs/run-now"
     headers = {"Authorization": f"Bearer {TOKEN}"}
@@ -16,6 +17,7 @@ def trigger_databricks_job():
         print("Databricks job started successfully!")
     else:
         print("Failed to start Databricks job:", response.text)
+
 
 if __name__ == "__main__":
     trigger_databricks_job()

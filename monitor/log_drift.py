@@ -8,7 +8,7 @@ drift_report_path = "monitoring-results/drift_report.json"
 
 # Load Data Drift Report
 response = s3_client.get_object(Bucket=s3_bucket, Key=drift_report_path)
-drift_report = json.loads(response['Body'].read().decode('utf-8'))
+drift_report = json.loads(response["Body"].read().decode("utf-8"))
 
 data_drift_score = drift_report["data_drift"]["drift_score"]  # Example metric
 
@@ -25,4 +25,6 @@ with mlflow.start_run():
     if data_drift_score > 0.2 or drift_score > 0.2:
         mlflow.set_tag("retrain_required", "true")
 
-print(f"Data Drift Score: {data_drift_score}, SHAP Drift Score: {drift_score}, Logged to MLflow.")
+print(
+    f"Data Drift Score: {data_drift_score}, SHAP Drift Score: {drift_score}, Logged to MLflow."
+)

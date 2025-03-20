@@ -16,7 +16,7 @@ response = sm_client.create_monitoring_schedule(
                 {
                     "S3Output": {
                         "S3Uri": "s3://your-bucket/monitoring-results/",
-                        "LocalPath": "/opt/ml/processing/output"
+                        "LocalPath": "/opt/ml/processing/output",
                     }
                 }
             ],
@@ -24,16 +24,16 @@ response = sm_client.create_monitoring_schedule(
                 "ClusterConfig": {
                     "InstanceCount": 1,
                     "InstanceType": "ml.m5.xlarge",
-                    "VolumeSizeInGB": 10
+                    "VolumeSizeInGB": 10,
                 }
             },
             "RoleArn": "arn:aws:iam::123456789012:role/SageMakerRole",
             "MonitoringAppSpecification": {
                 "ImageUri": "306415355426.dkr.ecr.us-west-2.amazonaws.com/sagemaker-model-monitor-analyzer"
-            }
+            },
         }
     },
-    MonitoringType="DataQuality"
+    MonitoringType="DataQuality",
 )
 
 print(f"Model Drift Detection Scheduled: {response['MonitoringScheduleArn']}")

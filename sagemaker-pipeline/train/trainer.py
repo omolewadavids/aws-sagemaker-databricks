@@ -1,7 +1,7 @@
-
 import torch
 import torch.optim as optim
 import torch.nn.functional as F
+
 
 def train_model(model, train_loader):
     optimizer = optim.Adam(model.parameters(), lr=0.001)
