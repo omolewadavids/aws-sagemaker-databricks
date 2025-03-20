@@ -23,7 +23,6 @@ def model_fn(model_dir):
 def input_fn(request_body, request_content_type):
     """Parse input JSON request into a PyTorch tensor."""
     import json
-    import numpy as np
 
     if request_content_type == "application/json":
         data = json.loads(request_body)
