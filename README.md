@@ -1,5 +1,13 @@
 # **AWS SageMaker Pipeline with Databricks MLflow & Model Drift Detection**  
 
+
+## 👤 Author  
+**Omolewa Adaramola**  
+📧 Email: [omolewa.davids@gmail.com](mailto:omolewa.davids@gmail.com)  
+🔗 GitHub: [github.com/omolewadavids](https://github.com/omolewadavids/aws-sagemaker-databricks)  
+🔗 LinkedIn: [linkedin.com/in/omolewa-davids](https://linkedin.com/in/omolewa-davids)  
+
+
 ## **📌 Overview**  
 This project implements a **CI/CD pipeline** for training and deploying **PyTorch models on AWS SageMaker** with **data preprocessing in Databricks**. It includes:  
 ✅ **Automated model drift detection** using SageMaker Model Monitor  
