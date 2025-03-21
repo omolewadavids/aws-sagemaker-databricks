@@ -1,0 +1,23 @@
+name: CI/CD Pipeline
+
+on: [push, pull_request]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Run Preprocessing
+        run: python databricks/databricks_job.py
+
+      - name: Monitor Data & SHAP Drift
+        run: python monitor/log_drift.py
+
+      - name: Retrain if Necessary
+        run: python train/retrain.py
+
+      - name: Deploy Best Model
+        run: python deploy/deploy.py
